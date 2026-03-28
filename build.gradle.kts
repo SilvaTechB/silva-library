@@ -87,8 +87,12 @@ android {
     }
 }
 
+// Use JDK 17 (auto-provisioned if not found) for Android compilation.
+// GraalVM's jlink is incompatible with AGP's JdkImageTransform; a standard JDK is required.
 java {
-    targetCompatibility = JavaVersion.VERSION_11
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 publishing {
@@ -103,14 +107,23 @@ publishing {
         }
     }
 
-    // KMP plugin creates a publication already, so just configure the POM.
-    publications.all {
-        if (this !is MavenPublication) return@all
+    // The KMP plugin automatically creates publications for each target:
+    //   - "jvm"            → artifact ID: silva-library-jvm
+    //   - "androidRelease" → artifact ID: silva-library-android
+    //   - "kotlinMultiplatform" → artifact ID: silva-library (metadata)
+    // We configure the shared POM here and pin the artifact IDs explicitly.
+    publications.withType<MavenPublication>().configureEach {
+        artifactId = when (name) {
+            "jvm"                  -> "silva-library-jvm"
+            "androidRelease"       -> "silva-library-android"
+            "kotlinMultiplatform"  -> "silva-library"
+            else                   -> artifactId
+        }
 
         pom {
             name = "Silva Library"
             description = "Library containing common utilities for Silva"
-            url = "https://github.com/SilvaTechB"
+            url = "https://github.com/SilvaTechB/silva-library"
 
             licenses {
                 license {
@@ -137,7 +150,13 @@ publishing {
     }
 }
 
-signing {
-    useGpgCmd()
-    sign(publishing.publications)
+// Sign only when a GPG key is available (in-memory, via env vars).
+// Set GPG_SIGNING_KEY (armored private key) and GPG_SIGNING_PASSWORD in your secrets.
+val signingKey = System.getenv("GPG_SIGNING_KEY")
+val signingPassword = System.getenv("GPG_SIGNING_PASSWORD")
+if (!signingKey.isNullOrEmpty()) {
+    signing {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications)
+    }
 }

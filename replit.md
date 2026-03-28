@@ -14,10 +14,11 @@ Handles Android-specific tasks and general utilities including:
 
 - **Language**: Kotlin (Multiplatform — targets `jvm` and `android`)
 - **Build System**: Gradle 8.9 (Kotlin DSL)
-- **Java Runtime**: GraalVM JDK 19 (via `java-graalvm22.3` module)
+- **Java Runtime**: GraalVM JDK 19 (daemon), JDK 17 Temurin (Android compilation, auto-provisioned)
+- **Android SDK**: Installed at `/home/runner/android-sdk` (platform 35, build-tools 35.0.1)
 - **Group ID**: `app.silva`
 - **Key Dependencies**:
-  - `app.morphe:jadb` — private fork with Shell v2 support (from MorpheApp GitHub Packages)
+  - `app.morphe:jadb` — private fork from MorpheApp GitHub Packages
   - `com.github.topjohnwu.libsu` — root shell access on Android
   - `com.google.guava` — core Java/Kotlin utilities
   - `org.jetbrains.kotlin:kotlin-reflect`
@@ -42,29 +43,64 @@ api/
 ## Required Secrets
 
 - `GITHUB_ACTOR` — GitHub username for authenticating with GitHub Packages
-- `GITHUB_TOKEN` — GitHub Personal Access Token with `read:packages` permission
-
-These are needed to:
-1. Resolve `app.morphe:jadb` from `maven.pkg.github.com/MorpheApp/registry`
-2. Resolve/publish packages at `maven.pkg.github.com/SilvaTechB/silva-library`
+- `GITHUB_TOKEN` — GitHub Personal Access Token with `read:packages` + `write:packages` permission
 
 ## Workflow
 
-- **Build Library**: `./gradlew compileKotlinJvm --no-daemon`
-  - Compiles the JVM target of the library
-  - Run type: `console`
+- **Build Library**: `./gradlew compileKotlinJvm --no-daemon`  
+  Compiles the JVM target to verify the code builds correctly.
+
+## Publishing to GitHub Packages
+
+Published artifacts (both already live at v1.3.0):
+- `app.silva:silva-library-jvm:1.3.0` — JVM artifact
+- `app.silva:silva-library-android:1.3.0` — Android AAR artifact
+
+To publish a new version, bump `version` in `gradle.properties`, then run from the Shell:
+
+```bash
+export ANDROID_HOME=/home/runner/android-sdk
+./gradlew publishJvmPublicationToGitHubPackagesRepository --no-daemon
+./gradlew publishAndroidReleasePublicationToGitHubPackagesRepository --no-daemon
+```
+
+Or publish all at once:
+```bash
+export ANDROID_HOME=/home/runner/android-sdk
+./gradlew publish --no-daemon
+```
+
+### Notes
+- **Signing**: Optional. Set `GPG_SIGNING_KEY` (armored private key) and `GPG_SIGNING_PASSWORD` secrets to enable in-memory GPG signing.
+- **Android SDK**: Installed at `/home/runner/android-sdk` (NOT committed to git, must be re-installed on fresh environments).
+- **JDK 17 Toolchain**: Auto-downloaded by Gradle on first run for Android compilation (GraalVM's jlink is incompatible with AGP).
+- **`local.properties`**: Points to Android SDK path; gitignored and machine-local.
 
 ## Dependency Repositories
 
-- `maven.pkg.github.com/SilvaTechB/silva-library` — primary silva registry
-- `maven.pkg.github.com/MorpheApp/registry` — secondary, for resolving `app.morphe:jadb` (until re-published as `app.silva:jadb`)
+- `maven.pkg.github.com/SilvaTechB/silva-library` — primary silva registry (publish + resolve)
+- `maven.pkg.github.com/MorpheApp/registry` — secondary, for resolving `app.morphe:jadb`
 - `jitpack.io` — for libsu
 
-## Publishing
+## Using This Library in Other Projects
 
-Artifacts are published to GitHub Packages at `maven.pkg.github.com/SilvaTechB/silva-library`. Publishing uses `GITHUB_ACTOR` and `GITHUB_TOKEN` credentials and GPG signing (`useGpgCmd()`).
+```kotlin
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/SilvaTechB/silva-library")
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
 
-Release automation is handled by `semantic-release` (configured in `.releaserc`) via npm scripts.
+dependencies {
+    implementation("app.silva:silva-library-android:1.3.0") // Android projects
+    // OR
+    implementation("app.silva:silva-library-jvm:1.3.0")    // JVM projects
+}
+```
 
 ## Rebrand Notes
 
