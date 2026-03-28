@@ -1,0 +1,49 @@
+This is a Kotlin Multiplatform (KMP) library called silva-library, forked from
+MorpheApp/morphe-library. Rebrand it fully from "morphe" to "silva":
+
+1. In build.gradle.kts:
+   - Change: group = "app.morphe"  →  group = "app.silva"
+   - Change: android.namespace = "app.morphe.library"
+         →   android.namespace = "app.silva.library"
+   - Change the dependency registry URL from:
+     https://maven.pkg.github.com/MorpheApp/registry
+     to:
+     https://maven.pkg.github.com/SilvaTechB/silva-library
+   - Change the publishing repository URL from:
+     https://maven.pkg.github.com/MorpheApp/morphe-library
+     to:
+     https://maven.pkg.github.com/SilvaTechB/silva-library
+   - Update POM metadata:
+       name:        "Morphe Library"          →  "Silva Library"
+       description: "...Morphe"               →  "...Silva"
+       url:         "https://morphe.software" →  "https://github.com/SilvaTechB"
+       developer id/name/email:  Morphe/contact@morphe.software  →  Silva/contact@silva.app
+       scm connection/url: MorpheApp/morphe-library  →  SilvaTechB/silva-library
+
+2. In settings.gradle.kts:
+   - Change: rootProject.name = "morphe-library"  →  rootProject.name = "silva-library"
+
+3. In every .kt file under src/:
+   - Replace all: package app.morphe.library  →  package app.silva.library
+   - Replace all: import app.morphe.library   →  import app.silva.library
+
+4. In the AIDL file at:
+   src/androidMain/aidl/app/morphe/library/installation/command/ILocalShellCommandRunnerRootService.aidl
+   - Move it to:
+   src/androidMain/aidl/app/silva/library/installation/command/ILocalShellCommandRunnerRootService.aidl
+   - Inside the file, change the package declaration from:
+     package app.morphe.library.installation.command;
+     to:
+     package app.silva.library.installation.command;
+   - Delete the old file at the old path.
+
+5. Rename API binary compatibility files:
+   - api/android/morphe-library.api  →  api/android/silva-library.api
+     (inside, replace all app/morphe/library with app/silva/library)
+   - api/jvm/morphe-library.api  →  api/jvm/silva-library.api
+     (inside, replace all app/morphe/library with app/silva/library)
+
+6. In gradle.properties:
+   - No changes needed (version stays as-is).
+
+After all changes, verify the project builds with: ./gradlew build
