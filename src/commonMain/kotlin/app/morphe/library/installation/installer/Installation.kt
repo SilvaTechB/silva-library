@@ -1,4 +1,4 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
 /**
  * [Installation] of an apk file.

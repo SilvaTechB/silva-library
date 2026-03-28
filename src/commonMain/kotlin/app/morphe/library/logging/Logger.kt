@@ -1,4 +1,4 @@
-package app.morphe.library.logging
+package app.silva.library.logging
 
 import java.util.logging.Handler
 import java.util.logging.Level
@@ -12,8 +12,8 @@ object Logger {
      */
     private val allowedLoggersRules =
         arrayOf<String.() -> Boolean>(
-            //  Morphe loggers.
-            { startsWith("app.morphe") },
+            //  Silva loggers.
+            { startsWith("app.silva") },
             // Logs warnings when compiling resources (Logger in class brut.util.OS).
             { this == "" },
         )

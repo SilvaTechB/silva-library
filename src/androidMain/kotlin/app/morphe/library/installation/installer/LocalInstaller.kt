@@ -1,4 +1,4 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
 import android.annotation.SuppressLint
 import android.app.PendingIntent
@@ -9,7 +9,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import app.morphe.library.installation.installer.Installer.Apk
+import app.silva.library.installation.installer.Installer.Apk
 import java.io.Closeable
 import java.io.File
 

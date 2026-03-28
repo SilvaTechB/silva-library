@@ -1,13 +1,13 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
 @Suppress("MemberVisibilityCanBePrivate")
 internal object Constants {
     const val PLACEHOLDER = "PLACEHOLDER"
 
-    const val TMP_FILE_PATH = "/data/local/tmp/morphe.tmp"
-    const val MOUNT_PATH = "/data/adb/morphe/"
+    const val TMP_FILE_PATH = "/data/local/tmp/silva.tmp"
+    const val MOUNT_PATH = "/data/adb/silva/"
     const val MOUNTED_APK_PATH = "$MOUNT_PATH$PLACEHOLDER.apk"
-    const val MOUNT_SCRIPT_PATH = "/data/adb/service.d/mount_morphe_$PLACEHOLDER.sh"
+    const val MOUNT_SCRIPT_PATH = "/data/adb/service.d/mount_silva_$PLACEHOLDER.sh"
 
     const val EXISTS = "[[ -f $PLACEHOLDER ]] || exit 1"
     const val MOUNT_GREP = "grep $PLACEHOLDER /proc/mounts"

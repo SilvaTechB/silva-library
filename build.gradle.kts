@@ -9,7 +9,7 @@ plugins {
     signing
 }
 
-group = "app.morphe"
+group = "app.silva"
 
 // Because access to the project is necessary to authenticate with GitHub,
 // the following block must be placed in the root build.gradle.kts file
@@ -19,7 +19,14 @@ repositories {
     mavenCentral()
     google()
     maven {
-        // A repository must be specified for some reason. "registry" is a dummy.
+        url = uri("https://maven.pkg.github.com/SilvaTechB/silva-library")
+        credentials {
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+    maven {
+        // Required to resolve app.morphe:jadb until it is re-published under app.silva.
         url = uri("https://maven.pkg.github.com/MorpheApp/registry")
         credentials {
             username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
@@ -64,7 +71,7 @@ kotlin {
 }
 
 android {
-    namespace = "app.morphe.library"
+    namespace = "app.silva.library"
     compileSdk = 35
     defaultConfig {
         minSdk = 26
@@ -88,7 +95,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/MorpheApp/morphe-library")
+            url = uri("https://maven.pkg.github.com/SilvaTechB/silva-library")
             credentials {
                 username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
                 password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
@@ -101,9 +108,9 @@ publishing {
         if (this !is MavenPublication) return@all
 
         pom {
-            name = "Morphe Library"
-            description = "Library containing common utilities for Morphe"
-            url = "https://morphe.software"
+            name = "Silva Library"
+            description = "Library containing common utilities for Silva"
+            url = "https://github.com/SilvaTechB"
 
             licenses {
                 license {
@@ -115,16 +122,16 @@ publishing {
 
             developers {
                 developer {
-                    id = "Morphe"
-                    name = "Morphe"
-                    email = "contact@morphe.software"
+                    id = "Silva"
+                    name = "Silva"
+                    email = "contact@silva.app"
                 }
             }
 
             scm {
-                connection = "scm:git:git://github.com/MorpheApp/morphe-library.git"
-                developerConnection = "scm:git:git@github.com:MorpheApp/morphe-library.git"
-                url = "https://github.com/MorpheApp/morphe-library"
+                connection = "scm:git:git://github.com/SilvaTechB/silva-library.git"
+                developerConnection = "scm:git:git@github.com:SilvaTechB/silva-library.git"
+                url = "https://github.com/SilvaTechB/silva-library"
             }
         }
     }

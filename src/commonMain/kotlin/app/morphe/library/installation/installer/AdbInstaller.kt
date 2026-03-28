@@ -1,7 +1,7 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
-import app.morphe.library.installation.command.AdbShellCommandRunner
-import app.morphe.library.installation.installer.Constants.INSTALLED_APK_PATH
+import app.silva.library.installation.command.AdbShellCommandRunner
+import app.silva.library.installation.installer.Constants.INSTALLED_APK_PATH
 import se.vidstige.jadb.JadbException
 import se.vidstige.jadb.managers.Package
 import se.vidstige.jadb.managers.PackageManager

@@ -1,4 +1,4 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
 /**
  * [RootInstallation] of the apk file that is mounted to [installedApkFilePath] with root permissions.

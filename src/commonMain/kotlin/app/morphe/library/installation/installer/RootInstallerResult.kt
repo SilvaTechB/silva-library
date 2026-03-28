@@ -1,6 +1,6 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
-import app.morphe.library.installation.installer.Installer.Apk
+import app.silva.library.installation.installer.Installer.Apk
 
 /**
  * The result of installing or uninstalling an [Apk] with root permissions using [RootInstaller].

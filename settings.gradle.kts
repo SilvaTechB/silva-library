@@ -1,5 +1,5 @@
 // TODO: Figure out why this causes problems.
-rootProject.name = "morphe-library"
+rootProject.name = "silva-library"
 
 buildCache {
     local {

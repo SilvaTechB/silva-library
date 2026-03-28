@@ -1,6 +1,6 @@
-package app.morphe.library.installation.command
+package app.silva.library.installation.command
 
-import app.morphe.library.installation.installer.getDevice
+import app.silva.library.installation.installer.getDevice
 import se.vidstige.jadb.JadbDevice
 import se.vidstige.jadb.RemoteFile
 import java.io.File

@@ -1,6 +1,6 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
-import app.morphe.library.installation.installer.Installer.Apk
+import app.silva.library.installation.installer.Installer.Apk
 import java.io.File
 import java.util.logging.Logger
 

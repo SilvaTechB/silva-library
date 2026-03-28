@@ -1,4 +1,4 @@
-package app.morphe.library.installation.command
+package app.silva.library.installation.command
 
 import android.content.Intent
 import com.topjohnwu.superuser.ipc.RootService

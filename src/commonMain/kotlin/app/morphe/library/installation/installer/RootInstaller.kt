@@ -1,23 +1,23 @@
-package app.morphe.library.installation.installer
+package app.silva.library.installation.installer
 
-import app.morphe.library.installation.command.ShellCommandRunner
-import app.morphe.library.installation.installer.Constants.CREATE_INSTALLATION_PATH
-import app.morphe.library.installation.installer.Constants.DELETE
-import app.morphe.library.installation.installer.Constants.EXISTS
-import app.morphe.library.installation.installer.Constants.INSTALLED_APK_PATH
-import app.morphe.library.installation.installer.Constants.INSTALL_MOUNT_SCRIPT
-import app.morphe.library.installation.installer.Constants.KILL
-import app.morphe.library.installation.installer.Constants.MOUNTED_APK_PATH
-import app.morphe.library.installation.installer.Constants.MOUNT_APK
-import app.morphe.library.installation.installer.Constants.MOUNT_GREP
-import app.morphe.library.installation.installer.Constants.MOUNT_SCRIPT
-import app.morphe.library.installation.installer.Constants.MOUNT_SCRIPT_PATH
-import app.morphe.library.installation.installer.Constants.RESTART
-import app.morphe.library.installation.installer.Constants.TMP_FILE_PATH
-import app.morphe.library.installation.installer.Constants.UMOUNT
-import app.morphe.library.installation.installer.Constants.invoke
-import app.morphe.library.installation.installer.Installer.Apk
-import app.morphe.library.installation.installer.RootInstaller.NoRootPermissionException
+import app.silva.library.installation.command.ShellCommandRunner
+import app.silva.library.installation.installer.Constants.CREATE_INSTALLATION_PATH
+import app.silva.library.installation.installer.Constants.DELETE
+import app.silva.library.installation.installer.Constants.EXISTS
+import app.silva.library.installation.installer.Constants.INSTALLED_APK_PATH
+import app.silva.library.installation.installer.Constants.INSTALL_MOUNT_SCRIPT
+import app.silva.library.installation.installer.Constants.KILL
+import app.silva.library.installation.installer.Constants.MOUNTED_APK_PATH
+import app.silva.library.installation.installer.Constants.MOUNT_APK
+import app.silva.library.installation.installer.Constants.MOUNT_GREP
+import app.silva.library.installation.installer.Constants.MOUNT_SCRIPT
+import app.silva.library.installation.installer.Constants.MOUNT_SCRIPT_PATH
+import app.silva.library.installation.installer.Constants.RESTART
+import app.silva.library.installation.installer.Constants.TMP_FILE_PATH
+import app.silva.library.installation.installer.Constants.UMOUNT
+import app.silva.library.installation.installer.Constants.invoke
+import app.silva.library.installation.installer.Installer.Apk
+import app.silva.library.installation.installer.RootInstaller.NoRootPermissionException
 import java.io.File
 
 /**
